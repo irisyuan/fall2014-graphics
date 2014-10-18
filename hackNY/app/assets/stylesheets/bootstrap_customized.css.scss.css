@@ -1,0 +1,14 @@
+$font-family-sans-serif:'Helvetica Neue', Helvetica, Arial, sans-serif;
+$navbar-height: 90px;
+$navbar-default-bg: white;
+$body-bg: #e0e0e0;
+$jumbotron-bg: #f8f8f8;
+$brand-primary: black;
+@import 'bootstrap';
+
+.center {
+     text-align: center;
+}
+.navbar-brand {
+     font-weight: bold;
+}
