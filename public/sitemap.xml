@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2014-12-11T01:57:50-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/final/</loc>
+    <lastmod>2014-12-11T01:57:50-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/hw11/</loc>
+    <lastmod>2014-12-11T01:52:52-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/hw10/</loc>
+    <lastmod>2014-12-11T01:52:50-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/hw9/</loc>
+    <lastmod>2014-12-11T01:52:48-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/hw8/</loc>
+    <lastmod>2014-12-11T01:52:43-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/hw7/</loc>
+    <lastmod>2014-12-11T01:52:40-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/hw6/</loc>
+    <lastmod>2014-12-11T01:52:37-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/hw5/</loc>
+    <lastmod>2014-12-11T01:52:34-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/hw4/</loc>
+    <lastmod>2014-12-11T01:52:30-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/hw3/</loc>
+    <lastmod>2014-12-11T01:52:24-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/hw2/</loc>
+    <lastmod>2014-12-11T01:52:19-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/hw1/</loc>
+    <lastmod>2014-12-11T01:30:51-05:00</lastmod>
+  </url>
+  
+</urlset>
