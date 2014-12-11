@@ -1,0 +1,40 @@
+<!-- this is terrible HTML, but focus is on canvas. proper html tags can be added after (see previous assignments) -->
+<head>
+<script src=g.js></script>
+</head>
+<body onload=g_start() style="background-color:black">
+<center>
+<canvas id=myCanvas1 width="940" height="640"></canvas>
+</center>
+<script>
+myCanvas1.animate = function(g) {
+	var w = g.canvas.width;
+ 	var h = g.canvas.height;
+    var funTesting;
+
+	var point = {
+		x: 0,
+		y: 0,
+		radius: 2,
+		draw: function(x,y) {
+			this.x = x;
+			this.y = y;
+			g.beginPath(); // "lift pen up"
+			g.arc(this.x, this.y, this.radius, 0, Math.PI*5, false);
+			g.fillStyle = "#66FFFF";
+
+			g.fill();
+			g.closePath(); // "put pen down"
+		}
+	};
+
+	for (var i = 200+Math.abs(Math.cos(time)); i > 0; i--) {
+		for (funTesting = 0; funTesting < 160+Math.abs(Math.sin(time)); funTesting++){
+      		point.draw(w/2 + i*Math.cos(0.01*time*i), h/2 + i*Math.sin(0.01*time*funTesting));
+ 			i=i-2;
+ 		}
+	}
+  }
+</script>
+</body>
+

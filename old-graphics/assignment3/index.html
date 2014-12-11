@@ -1,0 +1,82 @@
+<!DOCTYPE>
+<head>
+	<title>Iris Yuan Assignment 3</title>
+	<style>
+		h3,h4 { font-family:Helvetica, Arial, sans-serif; text-align:center; margin-top:30px;}
+		canvas#canvas1 { padding-left:0; padding-right:0; margin-left:auto; margin-right:auto; display:block; width:640px; height:640px;
+		}
+	</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src= "gl_lib1.js"></script>
+<script>
+
+var vertexShader = [
+,'   attribute vec3 a_pos;'
+,'   varying   vec3 v_pos;'
+,'   void main() {'
+,'      gl_Position = vec4(a_pos, 1.0);'
+,'      v_pos = a_pos;'
+,'   }'
+].join('\n');
+
+
+// Assignment 3: GLSL Ray Tracer
+// Iris Yuan, 09/25/2014
+
+var fragmentShader = [
+
+// Uniform and varying variables for time, position and mouse
+,'   precision mediump float;'
+,'   uniform float u_time;'
+,'   uniform vec3  u_mouse;'
+,'   varying vec3  v_pos;'
+
+// Function returns t - distance along the ray w/ closest intersection between ray and sphere
+,'	 float intersect(vec4 camera, vec4 ray, vec4 sphere) {'
+		// Calculate t by solving quadratic equation (finding roots) for
+		// t*t + t*(2*(V-C)·W + ((V-C)·(V-c) - r*r) = 0, where V is camera origin and W is ray direction
+,'	 	float A = 1.;'
+,'	 	float B = 2. * dot(vec4(camera.x-sphere.x, camera.y-sphere.y, camera.z-sphere.z,0.1), ray);'
+,'	 	float C = dot(vec4(camera.x-sphere.x, camera.y-sphere.y, camera.z-sphere.z,0.1), vec4(camera.x-sphere.x, camera.y-sphere.y, camera.z-sphere.z,0.1)) - sphere.w*sphere.w;'
+,'		float root = B*B - 4.*A*C;'
+
+,'		if (root > 0.) {'
+,'			float t = (-B-sqrt(root))/(2.*A);'
+,'			return t; }'
+		// If ray misses the sphere entirely, return an arbitrary large number
+,'		else { return 10000.; }' 
+,'	 }'
+
+,'   void main() {'
+		// Encode spheres as vec4(cx, cy, cz, r) with center and radius as components
+,'		vec4 sphere1 = vec4(-u_mouse.x+1.,-u_mouse.y+1.+1.,-6.,.3);'
+,'		vec4 sphere2 = vec4(u_mouse.x+1.,u_mouse.y+1.,-3.,.3);'
+
+		// Set our origin as the camera 
+		// Arbitrarily change the focal length 
+,'	 	vec4 camera = vec4(1.,1,sin(u_mouse.y)*4., 1.);' 
+
+		// Calculate ray's direction as unit length of "normalized" relative vector
+,'	 	vec4 ray = normalize(vec4(v_pos.x, v_pos.y, -2., 0.));' 
+
+,'		float t1 = intersect(camera, ray, sphere1);'
+,'		float t2 = intersect(camera, ray, sphere2);'
+,'		if(t1 < t2) {' // Color closer sphere with smaller 't' value 
+,'			gl_FragColor = vec4(0.95,0.95,0.95, 1.);'
+,'		} else if(t2 < t1) {' // Color farther sphere a different shade
+,'			gl_FragColor = vec4(0.,0.2,0.0, 0.1);' 
+,'		} else { gl_FragColor =  mix(sphere1, sphere2, sin(u_time)*8.); }' // Color background arbitrarily
+,'   }'
+].join('\n');
+
+// Start ray tracer with vertex and fragment shaders
+start_gl("canvas1", vertexShader, fragmentShader);
+</script>
+</head>
+
+<body>
+	<h3>Basic Ray Trace</h3>
+	<h4>Focal length is determined by mouse position to visualize the sphere with decreasing cz/increasing t value as focal length increases.</h4>
+	<canvas id="canvas1"  width="640" height="640"></canvas>
+</body>
+</html>

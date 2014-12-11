@@ -1,0 +1,60 @@
+<!DOCTYPE>
+<head>
+	<title>Iris Yuan Assignment 2</title>
+	<style>
+		body { background-color:#ffffff; color: black;}
+		h3 { font-family:Helvetica, Arial, sans-serif; text-align:center;}
+		canvas#canvas1 { 
+			padding-left: 0;
+		    padding-right: 0;
+		    margin-left: auto;
+		    margin-right: auto;
+		    display: block;
+		    width: 640px;
+		    height:640px;
+		}
+	</style>
+<script src= "gl_lib1.js"></script>
+<script>
+
+var vertexShader = [
+,'   attribute vec3 a_pos;'
+,'   varying   vec3 v_pos;'
+,'   void main() {'
+,'      gl_Position = vec4(a_pos, 1.0);'
+,'      v_pos = a_pos;'
+,'   }'
+].join('\n');
+
+var fragmentShader = [ 
+,'   precision mediump float;'
+,'   uniform float u_pixelSize;'
+ ,'   uniform float u_time;'
+ ,'   uniform vec3  u_mouse;'
+ ,'   varying vec3  v_pos;'
+ 
+,'   float smooth(float t) {'
+,'	 	return smoothstep(.5 + t/u_pixelSize, 0.001, 1.);'
+,'   }'
+
+ ,'   void main() {'
+,'      float x = mod(0.1*(v_pos.x - u_mouse.x*u_mouse.z), 100000.);'
+,'      float y = mod(0.1*(v_pos.y - u_mouse.y*u_mouse.z), 100000.);'
+
+,'      float t1 = smooth(v_pos.x * mod(u_time, 800.) * 0.01);'
+,'		gl_FragColor = vec4(t1, mod(u_time,10000.), x, 1.0);'
+
+,'   }'
+].join('\n');
+
+// START GL PROGRAM
+start_gl("canvas1", vertexShader, fragmentShader);
+</script>
+</head>
+
+<body></br>
+	<h3>Gradient Mix</h3></br>
+
+	<canvas id="canvas1"></canvas>
+</body>
+</html>

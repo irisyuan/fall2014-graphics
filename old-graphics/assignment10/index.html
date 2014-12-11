@@ -1,0 +1,186 @@
+<!doctype html>
+<html>
+<head>
+   <title>Iris Yuan Assignment 10</title>
+   <style>
+      body { background-color:black; }     
+      canvas { padding-left:0; padding-right:0; margin-left:auto; margin-right:auto; display:block; 
+      }
+   </style>
+<script src = "g.js"></script>
+<script src = "matrix4x4.js"></script>
+</head>
+<body onload = g_start()>
+<canvas id="myCanvas1" width=500 height=500></canvas>
+<script>
+   var w, h, g, vertices, faces;
+
+   // FOR THIS VERSION, WE CREATED AN ACTUAL VERTEX OBJECT.
+   function Vertex(x,y,z, l) {
+      if (typeof l === 'undefined') {
+         this.x = x;
+         this.y = y;
+         this.z = z;
+      } else {
+         this.x = l[0];
+         this.y = l[1];
+         this.z = l[2];
+      }
+      this.scale = function(s) {
+         this.x *= s;
+         this.y *= s;
+         this.z *= s;
+      }
+   }
+
+   // COMPUTE THE AREA OF A POLYGON.
+   function computeArea(P) {
+      var area = 0;
+      for (var i = 0 ; i < P.length ; i++) {
+         var j = (i + 1) % P.length;
+        var a = P[i];
+        var b = P[j];
+        area += (a[0] - b[0]) * (a[1] + b[1]);
+      }
+      return area / 2;
+   }
+
+   // MATRICES DON'T WORK WITH VERTICES, SO WE NEED A WRAPPER FUNCTION.
+   function transform(m, p) {
+      var q = m.transform([ p.x, p.y, p.z ]);
+      return new Vertex(q[0], q[1], q[2]);
+   }
+
+   // DRAW A CURVE ON THE 2D CANVAS.
+   function drawCurve(C) {
+      g.beginPath();
+      for (var i = 0 ; i < C.length ; i++)
+         if (i == 0)
+            moveTo(C[i]);
+         else
+            lineTo(C[i]);
+      g.stroke();
+   }
+
+   // VIEWPORT CONVERTS FROM 3D COORDS TO 2D CANVAS PIXELS.
+   var fl = 4.0; // DISTANCE OF CAMERA ALONG Z AXIS.
+
+   function viewport(p) {
+      var x = p.x;
+      var y = p.y;
+      var z = p.z;
+
+      // APPLY PERSPECTIVE.
+      z = fl / (fl - z);
+      x *= z;
+      y *= z;
+      return [ w/2 * x + w/2, h/2 - y * w/2 ];
+   }
+
+   function moveTo(p) {
+      var q = transform(m, p);  // APPLY 3D MATRIX TRANFORMATION
+      var xy = viewport(q);    // APPLY VIEWPORT TRANSFORM
+      g.moveTo(xy[0], xy[1]);
+   }
+
+   function lineTo(p) {
+      var q = transform(m, p);  // APPLY 3D MATRIX TRANFORMATION
+      var xy = viewport(q);    // APPLY VIEWPORT TRANSFORM
+      g.lineTo(xy[0], xy[1]);
+   }
+
+   // RENDER ONE TRIANGLE.
+   function renderTriangle(tri) {
+      var A = tri[0];
+      var B = tri[1];
+      var C = tri[2];
+
+      var a = viewport(transform(m, A));
+      var b = viewport(transform(m, B));
+      var c = viewport(transform(m, C));
+
+      var area = computeArea([a, b, c]);
+      if (area < 0) 
+        return;
+      drawCurve([ A, B, C, A ]);
+   }
+
+   // Animate the canvas
+   myCanvas1.animate = function(_g) {
+
+      g = _g;
+      w = g.canvas.width;
+      h = g.canvas.height;
+
+      g.fillStyle = 'rgb(0,0,0)'; // Default
+      g.beginPath();
+      g.moveTo(0, 0);
+      g.lineTo(w, 0);
+      g.lineTo(w, h);
+      g.lineTo(0, h);
+      g.lineTo(0, 0);
+      g.fill();
+
+      // ANIMATE THE SCENE.
+      m.identity();
+      m.rotateX(Math.cos(time));
+      m.rotateY(-Math.sin(time));
+
+      // DRAW LINES IN WHITE.
+      g.lineWidth = 2;
+      g.strokeStyle = 'rgb(' + 255 + ',' + Math.floor(Math.sin(time)) + ',' + 
+         255 + ')';
+      // RETURN A NEW VERTEX WHICH IS THE MIDPOINT OF TWO GIVEN VERTICES.
+      function midpoint(a, b) {
+         return new Vertex( (a.x + b.x) /2, (a.y + b.y) /2, (a.z + b.z) / 2 );
+      }
+
+      // get rid of redundant code
+      function triangle(i, vertices, faces) {
+         return [ new Vertex(0, 0, 0, vertices[ faces[i][2] ]), 
+                  new Vertex(0, 0, 0, vertices [ faces[i][1] ]), 
+                  new Vertex(0, 0, 0, vertices[ faces[i][0] ])
+               ];
+      }
+
+      // SUBDIVIDE A TRIANGLE, RECURSIVELY.
+      function subdivide(tri, nLevels) {
+         var a = tri[0];
+         var b = tri[1];
+         var c = tri[2];
+
+        if (--nLevels < 0) {
+          renderTriangle([a, b, c]);
+          return;
+        }
+
+         var d = midpoint(a, b);
+         var e = midpoint(b, c);
+         var f = midpoint(c, a);
+
+        subdivide([a,d,f], nLevels);
+        subdivide([d,b,e], nLevels);
+        subdivide([c,f,e], nLevels);
+        subdivide([d,e,f], nLevels);
+      }
+      // Need to change these to 1,-1 and add scale function to matrix4x4.js
+      vertices = [
+         [-0.5,-0.5,-0.5], [ 0.5,-0.5,-0.5], [-0.5, 0.5,-0.5], [ 0.5, 0.5,-0.5], [-0.5,-0.5, 0.5], [ 0.5,-0.5, 0.5], [-0.5, 0.5, 0.5], [ 0.5, 0.5, 0.5],
+         [-0.5,-0.5,-0.5], [ 0.5,-0.5,-0.5], [-0.5, 0.5,-0.5], [ 0.5, 0.5,-0.5], [-0.5,-0.5, 0.5], [ 0.5,-0.5, 0.5], [-0.5, 0.5, 0.5], [ 0.5, 0.5, 0.5],
+         [-0.5,-0.5,-0.5], [ 0.5,-0.5,-0.5], [-0.5, 0.5,-0.5], [ 0.5, 0.5,-0.5], [-0.5,-0.5, 0.5], [ 0.5,-0.5, 0.5], [-0.5, 0.5, 0.5], [ 0.5, 0.5, 0.5],
+      ];
+      faces = [
+         [  0,  4,  6 ], [  6,  2,  0],  // [ 0,  4,  6,  2]
+         [  1,  3,  7 ], [  7,  5,  1],  // [ 1,  3,  7,  5]
+         [  8,  9, 13 ], [ 13, 12,  8],  // [ 8,  9, 13, 12]
+         [ 10, 14, 15 ], [ 15, 11, 10],  // [10, 14, 15, 11]
+         [ 16, 18, 19 ], [ 19, 17, 16],  // [16, 18, 19, 17]
+         [ 20, 21, 23 ], [ 23, 22, 20],  // [20, 21, 23, 22]
+      ];
+
+      for (var i = 0; i < faces.length; i++) {
+         subdivide(triangle(i, vertices, faces), 1);
+      }
+}
+</script>
+</body>
