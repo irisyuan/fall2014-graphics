@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>Recent Content on Computer Graphics Iris Yuan </title>
+      <generator uri="https://hugo.spf13.com">Hugo</generator>
+    <link>http://localhost:1313/index.xml/</link>
+    <language>en-us</language>
+    
+    
+    <updated>Thu, 11 Dec 2014 01:57:50 EST</updated>
+    
+    <item>
+      <title>Three.js 12/23</title>
+      <link>http://localhost:1313/final/</link>
+      <pubDate>Thu, 11 Dec 2014 01:57:50 EST</pubDate>
+      
+      <guid>http://localhost:1313/final/</guid>
+      <description>&lt;p&gt;Final TBD!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Object 3D Perspective 12/4</title>
+      <link>http://localhost:1313/hw11/</link>
+      <pubDate>Thu, 11 Dec 2014 01:52:52 EST</pubDate>
+      
+      <guid>http://localhost:1313/hw11/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Shape Animation 11/20</title>
+      <link>http://localhost:1313/hw10/</link>
+      <pubDate>Thu, 11 Dec 2014 01:52:50 EST</pubDate>
+      
+      <guid>http://localhost:1313/hw10/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Matrix Class Animation 11/13</title>
+      <link>http://localhost:1313/hw9/</link>
+      <pubDate>Thu, 11 Dec 2014 01:52:48 EST</pubDate>
+      
+      <guid>http://localhost:1313/hw9/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>HTML5 Canvas 11/6</title>
+      <link>http://localhost:1313/hw8/</link>
+      <pubDate>Thu, 11 Dec 2014 01:52:43 EST</pubDate>
+      
+      <guid>http://localhost:1313/hw8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Javascript Matrix Class 10/30</title>
+      <link>http://localhost:1313/hw7/</link>
+      <pubDate>Thu, 11 Dec 2014 01:52:40 EST</pubDate>
+      
+      <guid>http://localhost:1313/hw7/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Turbulent Shader 10/23</title>
+      <link>http://localhost:1313/hw6/</link>
+      <pubDate>Thu, 11 Dec 2014 01:52:37 EST</pubDate>
+      
+      <guid>http://localhost:1313/hw6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Basic Phong Shader &amp; Chalktalk Idea 10/16</title>
+      <link>http://localhost:1313/hw5/</link>
+      <pubDate>Thu, 11 Dec 2014 01:52:34 EST</pubDate>
+      
+      <guid>http://localhost:1313/hw5/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ray Trace Using Arrays 10/2</title>
+      <link>http://localhost:1313/hw4/</link>
+      <pubDate>Thu, 11 Dec 2014 01:52:30 EST</pubDate>
+      
+      <guid>http://localhost:1313/hw4/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ray Trace Basics 9/25</title>
+      <link>http://localhost:1313/hw3/</link>
+      <pubDate>Thu, 11 Dec 2014 01:52:24 EST</pubDate>
+      
+      <guid>http://localhost:1313/hw3/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Fragment Shader Piano 9/18</title>
+      <link>http://localhost:1313/hw2/</link>
+      <pubDate>Thu, 11 Dec 2014 01:52:19 EST</pubDate>
+      
+      <guid>http://localhost:1313/hw2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>First Fragment Shader 9/11</title>
+      <link>http://localhost:1313/hw1/</link>
+      <pubDate>Thu, 11 Dec 2014 01:30:51 EST</pubDate>
+      
+      <guid>http://localhost:1313/hw1/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
